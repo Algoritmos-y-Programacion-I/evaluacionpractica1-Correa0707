@@ -55,17 +55,21 @@ public class Guacamaya {
                     solicitarDatos();
                     break;
                 case 2:
+                    calcularTotalUnidadesVendidas();
                     System.out.println("\nLa cantidad total de unidades vendidas en el dia fue de: "+calcularTotalUnidadesVendidas());
                     break;
                 case 3:
+                    calcularPrecioPromedio();
                     System.out.println("\nEl precio promedio de las referencias de producto vendidas en el dia fue de: "+calcularPrecioPromedio());
                     break;
                 case 4:
+                    calcularVentasTotales();
                     System.out.println("\nLas ventas totales (dinero recaudado) durante el dia fueron: "+calcularVentasTotales());
                     break;
                 case 5:
                     System.out.println("\nDigite el limite minimo de ventas a analizar");
                     double limite = reader.nextDouble();
+                    consultarReferenciasSobreLimite(limite);
                     System.out.println("\nDe las "+precios.length+" referencias vendidas en el dia, "+consultarReferenciasSobreLimite(limite)+" superaron el limite minimo de ventas de "+limite);
                     break;
                 case 6:
@@ -98,33 +102,85 @@ public class Guacamaya {
         unidades = new int[referencias];
 
     }
+    /**
+     * Descripcion: Este metodo se encarga de solicitar al cliente el precio de los prodcutos y la cantidad de ellos
+     * pre: El arreglo debe estar inicializado
+     * pos:el arreglo queda modificado
+     */
 
     public static void solicitarDatos(){
+        for (int i=0;i<unidades.length;i++){
+        System.out.println("Digite el precio de el producto "+ (i+1));
+            double PrecioProducto = reader.nextDouble();
+        System.out.println("Digita la cantidad  vendida  "+ (i+1));
+            int UnidadesProducto = reader.nextInt();
+            if (precios[i]==0) {precios[i]=PrecioProducto;}
+            if (unidades[i]==0) {unidades[i]=UnidadesProducto;}
+        
+    }
 
-     
+/**
+     * Descripcion: Este metodo calcula el total de unidades vendidas sumando el arreglo que los contiene hasta llegar al tamaño del arreglo y devuelve el calculo en una variable
+     * pre:El arreglo debe estar inicializado
+     */
+        
     }
 
     public static int calcularTotalUnidadesVendidas(){
+       int totalu=0;
+        for (int i=0;i<unidades.length;i++){
+            totalu+=unidades[i];
+        
+        }
 
-        return 0;
+        
+
+        return totalu;
 
     }
+    /**
+     * Descripcion: Este metodo se encarga de calcular el promedio multiplicando los arreglos y dividiendolos entre ellos 
+     * pre:El arreglo debe estar inicializado
+     */
 
     public static double calcularPrecioPromedio(){
+        double promPrecio=0;
+        int temp=0;
+        for (int i=0;i<precios.length;i++){
+            temp+=precios[i];
+        
+        }
+        promPrecio=(temp/precios.length);
 
-        return 0;
+        return promPrecio;
 
     }
 
     public static double calcularVentasTotales(){
+        double calculovendido=0;
+        for (int i=0;i<unidades.length;i++){
+            calculovendido+=(unidades[i]*precios[i]);
+        
+        }
 
-        return 0;
+
+        return calculovendido;
 
     }
 
     public static int consultarReferenciasSobreLimite(double limite){
+            double temporal=0;
+            int cantidadref=0;
+        for (int i = 0 ; i < unidades.length;i++){
+            temporal= (unidades[i]*precios[i]);
+            if (temporal>limite) {
 
-        return 0;
+                cantidadref++;
+            }
+
+        }
+
+        return cantidadref;
 
     }
 
